@@ -17,13 +17,15 @@ public class File {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         File file = (File) o;
+
         return path.equals(file.path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(path);
+        return path.hashCode();
     }
 
     /*@Override
@@ -32,14 +34,23 @@ public class File {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
+
         File file = (File) o;
-        return size == file.size &&
-                path.equals(file.path) &&
-                extension.equals(file.extension);
+
+        if (size != file.size)
+            return false;
+        if (!path.equals(file.path))
+            return false;
+        if(!extension.equals(file.extension))
+            return false;
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(size, path, extension);
+        int result = size;
+        result = 31 * result + path.hashCode();
+        result = 31 * result + extension.hashCode();
+        return result;
     }*/
 }
