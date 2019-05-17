@@ -20,20 +20,20 @@ public class UserRepository {
         if(user == null)
             return null;
 
-        for(User us : users){
-            if(user.equals(us))
-                return null;
-        }
+        for(User us : users)
+            if (us != null)
+                if (us.equals(user))
+                    return null;
 
         int index = 0;
         for(User us : users){
             if(us == null){
                 users[index] = user;
-                break;
+                return user;
             }
             index ++;
         }
-        return user;
+        return null;
     }
 
     //update user
@@ -43,13 +43,15 @@ public class UserRepository {
 
         int index = 0;
         for(User us : users){
-            if(user.equals(us)){
-                users[index] = user;
-                break;
+            if(us != null){
+                if(us.getId() == user.getId()){
+                    users[index] = user;
+                    return user;
+                }
             }
             index++;
         }
-        return user;
+        return null;
     }
 
     //delete user
@@ -73,11 +75,11 @@ public class UserRepository {
 
         int index = 0;
         for (User us : users){
-            if(user.equals(us)){
-                break;
-            }
+            if(us != null)
+                if(us.getId() == user.getId())
+                    return user;
             index++;
         }
-        return users[index];
+        return null;
     }
 }
