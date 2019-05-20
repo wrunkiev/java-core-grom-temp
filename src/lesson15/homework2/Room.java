@@ -56,8 +56,6 @@ public class Room {
     }
 
     //methods
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,7 +64,9 @@ public class Room {
         Room room = (Room) o;
 
         if (!hotelName.equals(room.hotelName)) return false;
-        return cityName.equals(room.cityName);
+        if(!cityName.equals(room.cityName)) return false;
+        return true;
+        //return cityName.equals(room.cityName);
     }
 
     @Override
