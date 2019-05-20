@@ -56,6 +56,7 @@ public class Room {
     }
 
     //methods
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,15 +64,15 @@ public class Room {
 
         Room room = (Room) o;
 
+        if (!dateAvailableFrom.equals(room.dateAvailableFrom)) return false;
         if (!hotelName.equals(room.hotelName)) return false;
-        if(!cityName.equals(room.cityName)) return false;
-        return true;
-        //return cityName.equals(room.cityName);
+        return cityName.equals(room.cityName);
     }
 
     @Override
     public int hashCode() {
-        int result = hotelName.hashCode();
+        int result = dateAvailableFrom.hashCode();
+        result = 31 * result + hotelName.hashCode();
         result = 31 * result + cityName.hashCode();
         return result;
     }
