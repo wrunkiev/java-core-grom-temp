@@ -21,6 +21,14 @@ public class Demo {
 
         API api1 = new BookingComAPI(rooms1);
         System.out.println(Arrays.toString(api1.findRooms(30, 2, "Kiev", "Kiev")));
+
+
+
+
+
+
+
+
         API api2 = new TripAdvisorAPI(rooms2);
         System.out.println(Arrays.toString(api2.findRooms(123, 3, "Odessa", "Odessa")));
         API api3 = new GoogleAPI(rooms1);

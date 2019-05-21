@@ -1,7 +1,5 @@
 package lesson15.homework2;
 
-import java.util.Date;
-
 public class BookingComAPI implements API {
     private Room[] rooms;
 
@@ -21,17 +19,21 @@ public class BookingComAPI implements API {
     }
 
     private int getCountRooms(int price, int persons, String city, String hotel){
-        Room paramRoom = new Room(0,price, persons,new Date(), hotel, city);
         int k = 0;
-        if(rooms != null) {
-            for (Room room : rooms) {
-                if(room != null){
-                    if (room.getPrice() >= price - 100 &&
-                            room.getPrice() <= price + 100 &&
-                            room.equals(paramRoom)) {
-                        k++;
-                    }
-                }
+
+        if(rooms == null)
+            return k;
+
+        for (Room room : rooms) {
+            if(room == null)
+                return k;
+
+            if (room.getPrice() >= price - 100 &&
+                    room.getPrice() <= price + 100 &&
+                    room.getPersons() == persons &&
+                    room.getCityName() == city &&
+                    room.getHotelName() == hotel) {
+                k++;
             }
         }
         return k;
@@ -39,18 +41,22 @@ public class BookingComAPI implements API {
 
     private Room[] fillRoomArrays(int n, int price, int persons, String city, String hotel){
         Room[] tempRooms = new Room[n];
-        Room paramRoom = new Room(0,price, persons,new Date(), hotel, city);
         int i = 0;
-        if(rooms != null) {
-            for (Room room : rooms) {
-                if(room != null){
-                    if (room.getPrice() > price - 100 &&
-                            room.getPrice() < price + 100 &&
-                            room.equals(paramRoom)) {
-                        tempRooms[i] = room;
-                        i++;
-                    }
-                }
+
+        if(rooms == null)
+            return null;
+
+        for (Room room : rooms) {
+            if(room == null)
+                return null;
+
+            if (room.getPrice() > price - 100 &&
+                    room.getPrice() < price + 100 &&
+                    room.getPersons() == persons &&
+                    room.getCityName() == city &&
+                    room.getHotelName() == hotel) {
+                tempRooms[i] = room;
+                i++;
             }
         }
         return tempRooms;
