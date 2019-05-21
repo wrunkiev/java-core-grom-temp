@@ -75,7 +75,7 @@ public class Room {
     public int hashCode() {
         int result = price;
         result = 31 * result + persons;
-        result = 31 * result + dateAvailableFrom.hashCode();
+       // result = 31 * result + dateAvailableFrom.hashCode();
         result = 31 * result + hotelName.hashCode();
         result = 31 * result + cityName.hashCode();
         return result;
