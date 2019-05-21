@@ -21,34 +21,39 @@ public class GoogleAPI implements API {
     private int getCountRooms(int price, int persons, String city, String hotel){
         Room paramRoom = new Room(0,price, persons,null, hotel, city);
         int k = 0;
-        if(rooms != null) {
-            for (Room room : rooms) {
-                if(room != null) {
-                    if (room.getPrice() == price &&
-                            room.getPersons() == persons &&
-                            room.equals(paramRoom)) {
-                        k++;
-                    }
-                }
+
+        if(rooms == null)
+            return k;
+
+        for (Room room : rooms) {
+            if(room == null)
+                continue;
+
+            if (room.equals(paramRoom)) {
+                k++;
             }
         }
         return k;
     }
 
     private Room[] fillRoomArrays(int n, int price, int persons, String city, String hotel){
+        if(n == 0)
+            return null;
+
         Room paramRoom = new Room(0,price, persons,null, hotel, city);
         Room[] tempRooms = new Room[n];
+
         int i = 0;
-        if(rooms != null) {
-            for (Room room : rooms) {
-                if(room != null) {
-                    if (room.getPrice() == price &&
-                            room.getPersons() == persons &&
-                            room.equals(paramRoom)) {
-                        tempRooms[i] = room;
-                        i++;
-                    }
-                }
+        if(rooms == null)
+            return null;
+
+        for (Room room : rooms) {
+            if(room == null)
+                continue;
+
+            if (room.equals(paramRoom)) {
+                tempRooms[i] = room;
+                i++;
             }
         }
         return tempRooms;

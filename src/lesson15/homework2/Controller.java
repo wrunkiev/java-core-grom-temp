@@ -6,6 +6,7 @@ public class Controller {
     public Controller(API[] apis) {
         this.apis = apis;
     }
+
     // requestRooms
     public Room[] requestRooms(int price, int persons, String city, String hotel){
         int n = getCountRooms(price, persons, city, hotel) + 1;
@@ -14,28 +15,36 @@ public class Controller {
 
     private int getCountRooms(int price, int persons, String city, String hotel){
         int s = 0;
-        if(apis != null) {
-            for (API api : apis) {
-                if (api != null) {
-                    s = api.findRooms(price, persons, city, hotel).length;
-                    s += s;
-                }
-            }
+        if(apis == null)
+            return s;
+
+        for (API api : apis) {
+            if(api == null)
+                continue;
+
+            s = api.findRooms(price, persons, city, hotel).length;
+            s += s;
         }
         return s;
     }
 
     private Room[] fillRoomArrays(int n, int price, int persons, String city, String hotel){
+        if(n == 0)
+            return null;
+
         Room[] tempRooms = new Room[n];
+
         int i = 0;
-        if(apis != null) {
-            for (API api : apis) {
-                if (api != null) {
-                    for (Room room : api.findRooms(price, persons, city, hotel)) {
-                        tempRooms[i] = room;
-                        i++;
-                    }
-                }
+        if(apis == null)
+            return null;
+
+        for (API api : apis) {
+            if(api == null)
+                continue;
+
+            for (Room room : api.findRooms(price, persons, city, hotel)) {
+                tempRooms[i] = room;
+                i++;
             }
         }
         return tempRooms;
@@ -54,9 +63,7 @@ public class Controller {
                 for (int i = 0; i < api1.getAll().length; i++) {
                     for (int k = 0; k < api2.getAll().length; k++) {
                         if(api1.getAll()[i] != null && api2.getAll()[k] != null) {
-                            if (api1.getAll()[i].getPrice() == api2.getAll()[k].getPrice() &&
-                                    api1.getAll()[i].getPersons() == api2.getAll()[k].getPersons() &&
-                                    api1.getAll()[i].equals(api2.getAll()[k])){
+                            if (api1.getAll()[i].equals(api2.getAll()[k])){
                                 n++;
                             }
                         }
@@ -67,9 +74,7 @@ public class Controller {
                 for (int i = 0; i < api2.getAll().length; i++) {
                     for (int k = 0; k < api1.getAll().length; k++) {
                         if(api1.getAll()[k] != null && api2.getAll()[i] != null) {
-                            if (api1.getAll()[k].getPrice() == api2.getAll()[i].getPrice() &&
-                                    api1.getAll()[k].getPersons() == api2.getAll()[i].getPersons() &&
-                                    api1.getAll()[k].equals(api2.getAll()[i])) {
+                            if (api1.getAll()[k].equals(api2.getAll()[i])) {
                                 n++;
                             }
                         }
@@ -87,31 +92,25 @@ public class Controller {
                 for (int i = 0; i < api1.getAll().length; i++) {
                     for (int k = 0; k < api2.getAll().length; k++) {
                         if(api1.getAll()[i] != null && api2.getAll()[k] != null) {
-                            if (api1.getAll()[i].getPrice() == api2.getAll()[k].getPrice() &&
-                                    api1.getAll()[i].getPersons() == api2.getAll()[k].getPersons() &&
-                                    api1.getAll()[i].equals(api2.getAll()[k])) {
+                            if (api1.getAll()[i].equals(api2.getAll()[k])) {
                                 for(int m = 0; m < n; m++){
                                     resRooms[m] = api1.getAll()[i];
                                 }
                             }
                         }
                     }
-
                 }
             } else {
                 for (int i = 0; i < api2.getAll().length; i++) {
                     for (int k = 0; k < api1.getAll().length; k++) {
                         if(api1.getAll()[k] != null && api2.getAll()[i] != null) {
-                            if (api1.getAll()[k].getPrice() == api2.getAll()[i].getPrice() &&
-                                    api1.getAll()[k].getPersons() == api2.getAll()[i].getPersons() &&
-                                    api1.getAll()[k].equals(api2.getAll()[i])) {
+                            if (api1.getAll()[k].equals(api2.getAll()[i])) {
                                 for(int m = 0; m < n; m++){
                                     resRooms[m] = api1.getAll()[i];
                                 }
                             }
                         }
                     }
-
                 }
             }
         }

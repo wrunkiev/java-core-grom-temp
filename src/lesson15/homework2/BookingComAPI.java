@@ -26,7 +26,7 @@ public class BookingComAPI implements API {
 
         for (Room room : rooms) {
             if(room == null)
-                return k;
+                continue;
 
             if (room.getPrice() >= price - 100 &&
                     room.getPrice() <= price + 100 &&
@@ -40,6 +40,8 @@ public class BookingComAPI implements API {
     }
 
     private Room[] fillRoomArrays(int n, int price, int persons, String city, String hotel){
+        if(n == 0)
+            return null;
         Room[] tempRooms = new Room[n];
         int i = 0;
 
@@ -48,7 +50,7 @@ public class BookingComAPI implements API {
 
         for (Room room : rooms) {
             if(room == null)
-                return null;
+                continue;
 
             if (room.getPrice() > price - 100 &&
                     room.getPrice() < price + 100 &&
