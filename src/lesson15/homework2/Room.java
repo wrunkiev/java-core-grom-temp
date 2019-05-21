@@ -64,6 +64,8 @@ public class Room {
 
         Room room = (Room) o;
 
+        if (price != room.price) return false;
+        if (persons != room.persons) return false;
         if (!dateAvailableFrom.equals(room.dateAvailableFrom)) return false;
         if (!hotelName.equals(room.hotelName)) return false;
         return cityName.equals(room.cityName);
@@ -71,7 +73,9 @@ public class Room {
 
     @Override
     public int hashCode() {
-        int result = dateAvailableFrom.hashCode();
+        int result = price;
+        result = 31 * result + persons;
+        result = 31 * result + dateAvailableFrom.hashCode();
         result = 31 * result + hotelName.hashCode();
         result = 31 * result + cityName.hashCode();
         return result;
