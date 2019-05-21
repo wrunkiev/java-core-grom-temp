@@ -1,5 +1,7 @@
 package lesson15.homework2;
 
+import java.util.Date;
+
 public class BookingComAPI implements API {
     private Room[] rooms;
 
@@ -19,7 +21,7 @@ public class BookingComAPI implements API {
     }
 
     private int getCountRooms(int price, int persons, String city, String hotel){
-        Room paramRoom = new Room(0,price, persons,null, hotel, city);
+        Room paramRoom = new Room(0,price, persons,new Date(), hotel, city);
         int k = 0;
         if(rooms != null) {
             for (Room room : rooms) {
@@ -38,7 +40,7 @@ public class BookingComAPI implements API {
 
     private Room[] fillRoomArrays(int n, int price, int persons, String city, String hotel){
         Room[] tempRooms = new Room[n];
-        Room paramRoom = new Room(0,price, persons,null, hotel, city);
+        Room paramRoom = new Room(0,price, persons,new Date(), hotel, city);
         int i = 0;
         if(rooms != null) {
             for (Room room : rooms) {
