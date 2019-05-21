@@ -26,7 +26,9 @@ public class BookingComAPI implements API {
         if(rooms != null) {
             for (Room room : rooms) {
                 if(room != null){
-                    if (room.equals(paramRoom)) {
+                    if (room.getPrice() >= price - 100 &&
+                            room.getPrice() <= price + 100 &&
+                            room.equals(paramRoom)) {
                         k++;
                     }
                 }
@@ -42,7 +44,9 @@ public class BookingComAPI implements API {
         if(rooms != null) {
             for (Room room : rooms) {
                 if(room != null){
-                    if (room.equals(paramRoom)) {
+                    if (room.getPrice() > price - 100 &&
+                            room.getPrice() < price + 100 &&
+                            room.equals(paramRoom)) {
                         tempRooms[i] = room;
                         i++;
                     }
