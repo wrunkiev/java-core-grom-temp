@@ -52,14 +52,17 @@ public class Controller {
         if(!checkFileId(storage, file))
             throw new Exception("Storage '" + storage.getId() + "' has File with such ID '" + file.getId() + "'.");
 
+        boolean isFreePlace = false;
         for(int i = 0; i < storage.getFiles().length; i++){
             if(storage.getFiles()[i] == null){
                 storage.getFiles()[i] = file;
+                isFreePlace = true;
                 break;
-            }else {
-                throw new Exception("Storage '" + storage.getId() + "' does not free place for File '" + file.getId() + "'.");
             }
         }
+
+        if(!isFreePlace)
+            throw new Exception("Storage '" + storage.getId() + "' does not free place for File '" + file.getId() + "'.");
     }
 
     public void delete(Storage storage, File file) throws Exception{
@@ -69,16 +72,19 @@ public class Controller {
         if(file == null)
             throw new NullPointerException("File is null.");
 
+        boolean isFile = false;
         for(int i = 0; i < storage.getFiles().length; i++){
             if(storage.getFiles()[i] != null){
                 if(storage.getFiles()[i].equals(file)) {
                     storage.getFiles()[i] = null;
+                    isFile = true;
                     break;
-                }else{
-                    throw new Exception("Storage '" + storage.getId() + "' does not have File '" + file.getId() + "'.");
                 }
             }
         }
+
+        if(!isFile)
+            throw new Exception("Storage '" + storage.getId() + "' does not have File '" + file.getId() + "'.");
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception{
@@ -128,9 +134,6 @@ public class Controller {
                     if(storageTo.getFiles()[j] == null && !storageFrom.getFiles()[i].equals(storageTo.getFiles()[j])){
                         storageTo.getFiles()[j] = storageFrom.getFiles()[i];
                         storageFrom.getFiles()[i] = null;
-                    }else {
-                        throw new Exception("Files are not moved from Storage '" + storageFrom.getId() +
-                                "' to Storage '" + storageTo.getId() + "'.");
                     }
                 }
             }
@@ -139,15 +142,19 @@ public class Controller {
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
         File findFile = null;
+        boolean isFile = false;
         for(File element : storageFrom.getFiles()){
             if(element != null){
                 if(element.getId() == id){
                     findFile = element;
-                }else {
-                    throw new Exception("File '" + id + "' is not found in Storage '" + storageFrom.getId() + "'.");
+                    isFile = true;
+                    break;
                 }
             }
         }
+
+        if(!isFile)
+            throw new Exception("File '" + id + "' is not found in Storage '" + storageFrom.getId() + "'.");
 
         try{
             put(storageTo, findFile);

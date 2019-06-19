@@ -11,7 +11,7 @@ public class Demo {
             File file4 = new File(4, "file4", "txt", 170);
             File file5 = new File(5, "file5", "doc", 140);
             File file = new File(6, "file1", "doc", 140);
-            File[] files1 = new File[]{file1, file2, file3, file4, file5};
+            File[] files1 = new File[]{file1, file2, null, null, file3, file4, file5};
             String[] formats1 = new String[]{"txt", "jpg", "doc"};
             Storage storage1 = new Storage(1, files1, formats1, "Ukraine", 1500);
 
@@ -21,8 +21,8 @@ public class Demo {
             controller.put(storage1, file);
             System.out.println(Arrays.toString(storage1.getFiles()));
 
-            /*controller.delete(storage1, file);
-            System.out.println(Arrays.toString(storage1.getFiles()));*/
+            controller.delete(storage1, file);
+            System.out.println(Arrays.toString(storage1.getFiles()));
 
 
 
