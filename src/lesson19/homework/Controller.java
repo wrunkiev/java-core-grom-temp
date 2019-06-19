@@ -59,20 +59,22 @@ public class Controller {
         return null;
     }
 
-    public File delete(Storage storage, File file){
-        if(storage == null)
+    public void delete(Storage storage, File file){
+        /*if(storage == null)
             return null;
 
         if(file == null)
-            return null;
+            return null;*/
 
-        for(int i = 0; i < storage.getFiles().length; i++){
-            if(storage.getFiles()[i].equals(file)) {
-                storage.getFiles()[i] = null;
-                return file;
+        if(storage != null && file != null){
+            for(int i = 0; i < storage.getFiles().length; i++){
+                if(storage.getFiles()[i].equals(file)) {
+                    storage.getFiles()[i] = null;
+                    //return file;
+                }
             }
         }
-        return null;
+        //return null;
     }
 
     public File[] transferAll(Storage storageFrom, Storage storageTo){
