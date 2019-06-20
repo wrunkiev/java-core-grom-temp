@@ -168,11 +168,11 @@ public class Controller {
         if(!isFile)
             throw new Exception("File '" + id + "' is not found in Storage '" + storageFrom.getId() + "'.");
 
-        try{
+        //try{
             put(storageTo, findFile);
             delete(storageFrom, findFile);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        //}catch (Exception e){
+            //System.out.println(e.getMessage());
+        //}
     }
 }
