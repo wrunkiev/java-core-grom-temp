@@ -88,6 +88,12 @@ public class Controller {
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception{
+        if(storageFrom == null)
+            throw new NullPointerException("StorageFrom is null.");
+
+        if(storageTo == null)
+            throw new NullPointerException("StorageTo is null.");
+
         for(int i = 0; i < storageFrom.getFiles().length; i++){
             if(storageFrom.getFiles()[i] == null)
                 continue;

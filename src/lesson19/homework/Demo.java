@@ -45,15 +45,6 @@ public class Demo {
             System.out.println(Arrays.toString(storage1.getFiles()));
             System.out.println(Arrays.toString(storage2.getFiles()));
 
-
-
-
-
-
-
-
-
-
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
