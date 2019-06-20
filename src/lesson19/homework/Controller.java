@@ -141,6 +141,12 @@ public class Controller {
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
+        if(storageFrom == null)
+            throw new NullPointerException("StorageFrom is null.");
+
+        if(storageTo == null)
+            throw new NullPointerException("StorageTo is null.");
+
         File findFile = null;
         boolean isFile = false;
         for(File element : storageFrom.getFiles()){
