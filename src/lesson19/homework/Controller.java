@@ -34,12 +34,32 @@ public class Controller {
         return true;
     }
 
-    public void put(Storage storage, File file) throws Exception{
+    private void checkStorageNull(Storage storage){
         if(storage == null)
             throw new NullPointerException("Storage is null.");
+    }
 
+    private void checkFileNull(File file){
         if(file == null)
             throw new NullPointerException("File is null.");
+    }
+
+    private void checkStorageFromNull(Storage storage){
+        if(storage == null)
+            throw new NullPointerException("StorageFrom is null.");
+    }
+
+    private void checkStorageToNull(Storage storage){
+        if(storage == null)
+            throw new NullPointerException("StorageTo is null.");
+    }
+
+
+
+    public void put(Storage storage, File file) throws Exception{
+        checkStorageNull(storage);
+
+        checkFileNull(file);
 
         if(!checkFileFormat(storage, file)){
             throw new Exception("Format of File '" + file.getId() +  "' is not support in Storage '" +
@@ -66,11 +86,9 @@ public class Controller {
     }
 
     public void delete(Storage storage, File file) throws Exception{
-        if(storage == null)
-            throw new NullPointerException("Storage is null.");
+        checkStorageNull(storage);
 
-        if(file == null)
-            throw new NullPointerException("File is null.");
+        checkFileNull(file);
 
         boolean isFile = false;
         for(int i = 0; i < storage.getFiles().length; i++){
@@ -88,34 +106,28 @@ public class Controller {
     }
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception{
-        if(storageFrom == null)
-            throw new NullPointerException("StorageFrom is null.");
+        checkStorageFromNull(storageFrom);
 
-        if(storageTo == null)
-            throw new NullPointerException("StorageTo is null.");
-
-        for(int i = 0; i < storageFrom.getFiles().length; i++){
-            if(storageFrom.getFiles()[i] == null)
-                continue;
-            if(!checkFileFormat(storageTo, storageFrom.getFiles()[i]))
-                throw new Exception("Format of File '" + storageFrom.getFiles()[i].getId() +
-                        "' is not support in Storage '" + storageTo.getId() + "'.");
-        }
-
-        for(int i = 0; i < storageFrom.getFiles().length; i++){
-            if(storageFrom.getFiles()[i] == null)
-                continue;
-            if(!checkFileId(storageTo, storageFrom.getFiles()[i]))
-                throw new Exception("Storage '" + storageTo.getId() + "' has file with such ID: " +
-                        storageFrom.getFiles()[i].getId());
-        }
+        checkStorageToNull(storageTo);
 
         long sizeStorage = getRealStorageSize(storageTo);
-        for (int i = 0; i < storageFrom.getFiles().length; i++){
+
+        for(int i = 0; i < storageFrom.getFiles().length; i++){
             if(storageFrom.getFiles()[i] != null){
-                sizeStorage += storageFrom.getFiles()[i].getSize();
+                if(!checkFileFormat(storageTo, storageFrom.getFiles()[i]))
+                    throw new Exception("Format of File '" + storageFrom.getFiles()[i].getId() +
+                            "' is not support in Storage '" + storageTo.getId() + "'.");
+
+                if(!checkFileId(storageTo, storageFrom.getFiles()[i]))
+                    throw new Exception("Storage '" + storageTo.getId() + "' has file with such ID: " +
+                            storageFrom.getFiles()[i].getId());
+
+                if(storageFrom.getFiles()[i] != null){
+                    sizeStorage += storageFrom.getFiles()[i].getSize();
+                }
             }
         }
+        
         if(sizeStorage > storageTo.getStorageSize())
             throw new Exception("Size of Storage '" + storageTo.getId() + "' is more then valid.");
 
@@ -147,11 +159,9 @@ public class Controller {
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
-        if(storageFrom == null)
-            throw new NullPointerException("StorageFrom is null.");
+        checkStorageFromNull(storageFrom);
 
-        if(storageTo == null)
-            throw new NullPointerException("StorageTo is null.");
+        checkStorageToNull(storageTo);
 
         File findFile = null;
         boolean isFile = false;
@@ -168,11 +178,7 @@ public class Controller {
         if(!isFile)
             throw new Exception("File '" + id + "' is not found in Storage '" + storageFrom.getId() + "'.");
 
-        //try{
-            put(storageTo, findFile);
-            delete(storageFrom, findFile);
-        //}catch (Exception e){
-            //System.out.println(e.getMessage());
-        //}
+        put(storageTo, findFile);
+        delete(storageFrom, findFile);
     }
 }
