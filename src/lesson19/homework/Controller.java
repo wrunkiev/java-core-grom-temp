@@ -127,7 +127,7 @@ public class Controller {
                 }
             }
         }
-        
+
         if(sizeStorage > storageTo.getStorageSize())
             throw new Exception("Size of Storage '" + storageTo.getId() + "' is more then valid.");
 
