@@ -43,7 +43,7 @@ public class Transaction {
         return dateCreated;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -63,5 +63,5 @@ public class Transaction {
         result = 31 * result + description.hashCode();
         result = 31 * result + type.hashCode();
         return result;
-    }
+    }*/
 }
