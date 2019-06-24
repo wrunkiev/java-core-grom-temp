@@ -47,7 +47,7 @@ public class TransactionDAO {
                 count++;
             }
 
-            if(tr.equals(transaction)){
+            if(tr != null && tr.equals(transaction)){
                 throw new BadRequestException("Transaction with such id: " + transaction.getId() + " already exist");
             }
         }
