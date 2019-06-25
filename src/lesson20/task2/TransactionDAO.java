@@ -83,8 +83,6 @@ public class TransactionDAO {
             }
         }
 
-        if(count == 0)
-            throw new BadRequestException("List of transaction is empty");
         Transaction[] result = new Transaction[count];
 
         int index = 0;
@@ -107,8 +105,8 @@ public class TransactionDAO {
             }
         }
 
-        if(count == 0)
-            throw new BadRequestException("Transactions with such city " + city + " is not exist");
+        /*if(count == 0)
+            throw new BadRequestException("Transactions with such city " + city + " is not exist");*/
 
         Transaction[] result = new Transaction[count];
 
@@ -116,7 +114,7 @@ public class TransactionDAO {
         for(Transaction tr : transactions){
             if(tr != null && tr.getCity().equals(city)) {
                 result[index] = tr;
-                count++;
+                index++;
             }
         }
         return result;
@@ -130,8 +128,8 @@ public class TransactionDAO {
             }
         }
 
-        if(count == 0)
-            throw new BadRequestException("Transactions with such amount " + amount + " is not exist");
+        /*if(count == 0)
+            throw new BadRequestException("Transactions with such amount " + amount + " is not exist");*/
 
         Transaction[] result = new Transaction[count];
 
@@ -139,7 +137,7 @@ public class TransactionDAO {
         for(Transaction tr : transactions){
             if(tr != null && tr.getAmount() == amount) {
                 result[index] = tr;
-                count++;
+                index++;
             }
         }
         return result;
