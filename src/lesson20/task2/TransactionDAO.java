@@ -75,8 +75,25 @@ public class TransactionDAO {
         }
     }
 
-    Transaction[] transactionList(){
-        return transactions;
+    Transaction[] transactionList() throws Exception{
+        int count = 0;
+        for(Transaction tr : transactions){
+            if(tr != null){
+                count++;
+            }
+        }
+
+        if(count == 0)
+            throw new BadRequestException("List of transaction is empty");
+        Transaction[] result = new Transaction[count];
+
+        int index = 0;
+        for(Transaction tr : transactions){
+            if(tr != null){
+                result[index] = tr;
+            }
+        }
+        return result;
     }
 
     Transaction[] transactionList(String city) throws Exception{
