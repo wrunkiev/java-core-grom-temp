@@ -50,7 +50,7 @@ public class TransactionDAO {
                 count++;
             }
 
-            if(tr != null && tr.getType() != null && tr.getCity() != null && tr.equals(transaction)){
+            if(tr != null && tr.equals(transaction)){
                 throw new BadRequestException("Such transaction with id: " + transaction.getId() + " already exist");
             }
         }
