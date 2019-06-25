@@ -89,6 +89,7 @@ public class TransactionDAO {
         for(Transaction tr : transactions){
             if(tr != null){
                 result[index] = tr;
+                index++;
             }
         }
         return result;
