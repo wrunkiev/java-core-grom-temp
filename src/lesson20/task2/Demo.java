@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class Demo {
     public static void main(String[] args) {
-        Transaction transaction1 = new Transaction(1, "Kiev", 15, "Трансфер1", null, new Date());
+        Transaction transaction1 = new Transaction(1, "Kiev", 15, "Трансфер1", TransactionType.OUTCOME, new Date());
 
         Controller controller = new Controller();
 
