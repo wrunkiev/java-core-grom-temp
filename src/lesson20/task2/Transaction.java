@@ -43,13 +43,14 @@ public class Transaction {
         return dateCreated;
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Transaction that = (Transaction) o;
 
+        if (id != that.id) return false;
         if (amount != that.amount) return false;
         if (!city.equals(that.city)) return false;
         if (!description.equals(that.description)) return false;
@@ -58,10 +59,11 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        int result = city.hashCode();
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + city.hashCode();
         result = 31 * result + amount;
         result = 31 * result + description.hashCode();
         result = 31 * result + type.hashCode();
         return result;
-    }*/
+    }
 }

@@ -36,6 +36,9 @@ public class TransactionDAO {
         if(transaction == null)
             throw new BadRequestException("Can't save null transaction");
 
+        if(transaction.getCity() == null || transaction.getType() == null || transaction.getDescription() == null)
+            throw new BadRequestException("Attributes of transaction can't be null");
+
         if(transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
 
@@ -47,8 +50,8 @@ public class TransactionDAO {
                 count++;
             }
 
-            if(tr != null && tr.equals(transaction)){
-                throw new BadRequestException("Transaction with such id: " + transaction.getId() + " already exist");
+            if(tr != null && tr.getType() != null && tr.getCity() != null && tr.equals(transaction)){
+                throw new BadRequestException("Such transaction with id: " + transaction.getId() + " already exist");
             }
         }
 

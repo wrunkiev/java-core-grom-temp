@@ -12,11 +12,9 @@ public class Demo {
         Controller controller = new Controller();
 
         try {
-
+            System.out.println(Arrays.toString(controller.transactionList()));
             System.out.println(controller.save(transaction1));
             System.out.println(Arrays.toString(controller.transactionList()));
-            System.out.println();
-
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
