@@ -105,9 +105,6 @@ public class TransactionDAO {
             }
         }
 
-        /*if(count == 0)
-            throw new BadRequestException("Transactions with such city " + city + " is not exist");*/
-
         Transaction[] result = new Transaction[count];
 
         int index = 0;
@@ -127,9 +124,6 @@ public class TransactionDAO {
                 count++;
             }
         }
-
-        /*if(count == 0)
-            throw new BadRequestException("Transactions with such amount " + amount + " is not exist");*/
 
         Transaction[] result = new Transaction[count];
 
