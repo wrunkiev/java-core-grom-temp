@@ -25,7 +25,7 @@ public class FirstArray {
         int[] secondArray = {1, 10, 15, 20, -50};
         System.out.println(Arrays.toString(secondArray));
 
-        //System.out.println(secondArray[5]);
+        //Sys.out.println(secondArray[5]);
 
         for (int element : secondArray) {
             System.out.println(element);
