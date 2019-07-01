@@ -25,7 +25,17 @@ public class GeneralDAO<T> {
     private void validate(T t) throws Exception{
         if(t == null)
             throw new Exception("Can't null");
+
+        int index = 0;
+        for(T el : array){
+            if(el.equals(t)){
+                throw new Exception("Array have already that element");
+            }
+            index++;
+        }
     }
+
+
 
     public T[] getAll(){
         return array;
