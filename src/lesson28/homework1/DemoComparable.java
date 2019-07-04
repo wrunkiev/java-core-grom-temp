@@ -1,4 +1,6 @@
-package lesson28;
+package lesson28.homework1;
+
+
 
 import java.util.Date;
 import java.util.Set;
