@@ -1,70 +1,17 @@
 package lesson30.homework.DAO;
 
 import lesson30.homework.*;
+import lesson30.homework.Exception.EmployeeBadException;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeeDAO {
 
-    private static Department setDepartment(DepartmentType departmentType){
-        Department department = null;
-        try{
-            department = DepartmentDAO.getDepartmentByType(departmentType);
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return department;
-    }
-
-    private static ArrayList<Project> setProjects(){
-        ArrayList<Project> projects = new ArrayList<>();
-        try{
-            projects.add(ProjectDAO.getProjectByName("Simple"));
-            projects.add(ProjectDAO.getProjectByName("Multilevel"));
-            projects.add(ProjectDAO.getProjectByName("Complex"));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return projects;
-    }
-
-    private static ArrayList<Project> setProjects1(){
-        ArrayList<Project> projects = new ArrayList<>();
-        try{
-            projects.add(ProjectDAO.getProjectByName("Simple"));
-            projects.add(ProjectDAO.getProjectByName("Multilevel"));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return projects;
-    }
-
-    private static ArrayList<Project> setProjects2(){
-        ArrayList<Project> projects = new ArrayList<>();
-        try{
-            projects.add(ProjectDAO.getProjectByName("Multilevel"));
-            projects.add(ProjectDAO.getProjectByName("Complex"));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return projects;
-    }
-
-    private static ArrayList<Project> setProjects3(){
-        ArrayList<Project> projects = new ArrayList<>();
-        try{
-            projects.add(ProjectDAO.getProjectByName("Simple"));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return projects;
-    }
-
     private static Employee employeeTeamLead = new Employee("Sergey", "Potap", null, Position.TEAM_LEAD, setDepartment(DepartmentType.DEVELOPERS), setProjects());
     private static Employee employeeDev1 = new Employee("Denis", "Green", null, Position.DEVELOPER, setDepartment(DepartmentType.DEVELOPERS), setProjects1());
     private static Employee employeeDev2 = new Employee("Kiril", "Hlopko", null, Position.DEVELOPER, setDepartment(DepartmentType.DEVELOPERS), setProjects2());
-    private static Employee employeeDev3 = new Employee("Arkadiy", "Murka", null, Position.DEVELOPER, setDepartment(DepartmentType.DEVELOPERS), setProjects());
+    private static Employee employeeDev3 = new Employee("Arkadiy", "Murka", null, Position.DEVELOPER, setDepartment(DepartmentType.DEVELOPERS), setProjects3());
     private static Employee employeeFin = new Employee("Harold", "Pink", null, Position.FINANCE, setDepartment(DepartmentType.FINANCIERS), setProjects());
     private static Employee employeeAnalyst = new Employee("Evgen", "Ribak", null, Position.ANALYST, setDepartment(DepartmentType.ANALYSTS), setProjects());
     private static Employee employeeMan = new Employee("Artem", "Grey", null, Position.MANAGER, setDepartment(DepartmentType.MANAGERS), setProjects());
@@ -87,9 +34,63 @@ public class EmployeeDAO {
         employees.add(employeeLeadDes);
     }
 
+    private static Department setDepartment(DepartmentType departmentType){
+        Department department = null;
+        try{
+            department = DepartmentDAO.getDepartmentByType(departmentType);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return department;
+    }
+
+    private static ArrayList<Project> setProjects(){
+        ArrayList<Project> projects = new ArrayList<>();
+        try{
+            projects.add(ProjectDAO.getProjectByName("Simple"));
+            projects.add(ProjectDAO.getProjectByName("Multilevel"));
+            projects.add(ProjectDAO.getProjectByName("Complex"));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return projects;
+    }
+
+    private static ArrayList<Project> setProjects1(){
+        ArrayList<Project> projects = new ArrayList<>();
+        try{
+            projects.add(ProjectDAO.getProjectByName("Simple"));
+            projects.add(ProjectDAO.getProjectByName("Multilevel"));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return projects;
+    }
+
+    private static ArrayList<Project> setProjects2(){
+        ArrayList<Project> projects = new ArrayList<>();
+        try{
+            projects.add(ProjectDAO.getProjectByName("Multilevel"));
+            projects.add(ProjectDAO.getProjectByName("Complex"));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return projects;
+    }
+
+    private static ArrayList<Project> setProjects3(){
+        ArrayList<Project> projects = new ArrayList<>();
+        try{
+            projects.add(ProjectDAO.getProjectByName("Simple"));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return projects;
+    }
+
     public static ArrayList<Employee> getEmployeesByFirstName(String firstName)throws Exception{
         if(firstName == null || firstName.equals(""))
-            throw new Exception("Имя сотрудника не указано!!!");
+            throw new EmployeeBadException("Name of employee can't be null or empty!!!");
         ArrayList<Employee> result = new ArrayList<>();
 
         setEmployees();
@@ -104,7 +105,7 @@ public class EmployeeDAO {
 
     public static ArrayList<Employee> getEmployeesByLastName(String lastName)throws Exception{
         if(lastName == null || lastName.equals(""))
-            throw new Exception("Фамилия сотрудника не указано!!!");
+            throw new EmployeeBadException("Last Name of employee can't be null or empty!!!");
 
         ArrayList<Employee> result = new ArrayList<>();
 
@@ -120,7 +121,7 @@ public class EmployeeDAO {
 
     public static ArrayList<Employee> getEmployeesByDateHired(Date dateHired)throws Exception{
         if(dateHired == null)
-            throw new Exception("Дата приема сотрудника на работу не указано!!!");
+            throw new EmployeeBadException("Date of hired of employee can't be null!!!");
 
         ArrayList<Employee> result = new ArrayList<>();
 
@@ -136,7 +137,7 @@ public class EmployeeDAO {
 
     public static ArrayList<Employee> getEmployeesByPosition(Position position)throws Exception{
         if(position == null)
-            throw new Exception("Должность сотрудника не указана!!!");
+            throw new EmployeeBadException("Position of employee can't be null!!!");
 
         ArrayList<Employee> result = new ArrayList<>();
 

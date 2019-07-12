@@ -3,42 +3,12 @@ package lesson30.homework.DAO;
 import lesson30.homework.Department;
 import lesson30.homework.DepartmentType;
 import lesson30.homework.Employee;
+import lesson30.homework.Exception.DepartmentBadException;
+import lesson30.homework.Exception.InternalServerException;
 import lesson30.homework.Position;
 import java.util.ArrayList;
 
 public class DepartmentDAO {
-
-    private static ArrayList<Employee> setEmployeesDev(){
-        ArrayList<Employee> employeesDev = new ArrayList<>();
-        try{
-            employeesDev.addAll(EmployeeDAO.getEmployeesByPosition(Position.TEAM_LEAD));
-            employeesDev.addAll(EmployeeDAO.getEmployeesByPosition(Position.DEVELOPER));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return employeesDev;
-    }
-
-    private static ArrayList<Employee> setEmployeesDes(){
-        ArrayList<Employee> employeesDes = new ArrayList<>();
-        try{
-            employeesDes.addAll(EmployeeDAO.getEmployeesByPosition(Position.LEAD_DESIGNER));
-            employeesDes.addAll(EmployeeDAO.getEmployeesByPosition(Position.DESIGNER));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return employeesDes;
-    }
-
-    private static ArrayList<Employee> setEmployees(Position position){
-        ArrayList<Employee> employees = new ArrayList<>();
-        try{
-            employees.addAll(EmployeeDAO.getEmployeesByPosition(position));
-        }catch (Exception e){
-            e.getMessage();
-        }
-        return employees;
-    }
 
     private static Department departmentDev = new Department(DepartmentType.DEVELOPERS, setEmployeesDev());
     private static Department departmentDes = new Department(DepartmentType.DESIGNERS, setEmployeesDes());
@@ -56,9 +26,41 @@ public class DepartmentDAO {
         departments.add(departmentFin);
     }
 
+    private static ArrayList<Employee> setEmployeesDev(){
+        ArrayList<Employee> employeesDev = new ArrayList<>();
+        try{
+            employeesDev.addAll(EmployeeDAO.getEmployeesByPosition(Position.TEAM_LEAD));
+            employeesDev.addAll(EmployeeDAO.getEmployeesByPosition(Position.DEVELOPER));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+       }
+        return employeesDev;
+    }
+
+    private static ArrayList<Employee> setEmployeesDes(){
+        ArrayList<Employee> employeesDes = new ArrayList<>();
+        try{
+            employeesDes.addAll(EmployeeDAO.getEmployeesByPosition(Position.LEAD_DESIGNER));
+            employeesDes.addAll(EmployeeDAO.getEmployeesByPosition(Position.DESIGNER));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return employeesDes;
+    }
+
+    private static ArrayList<Employee> setEmployees(Position position){
+        ArrayList<Employee> employees = new ArrayList<>();
+        try{
+            employees.addAll(EmployeeDAO.getEmployeesByPosition(position));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return employees;
+    }
+
     public static Department getDepartmentByType(DepartmentType type)throws Exception{
         if(type == null)
-            throw new Exception("Тип департамента не указан!!!");
+            throw new DepartmentBadException("Type of department can't be null!!!");
 
         setDepartments();
 
@@ -67,7 +69,7 @@ public class DepartmentDAO {
                 return d;
             }
         }
-        return null;
+        throw new InternalServerException("Can't get department by type");
     }
 
     public static ArrayList<Department> getDepartments(){

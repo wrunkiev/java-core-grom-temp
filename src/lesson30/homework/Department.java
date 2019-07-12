@@ -19,4 +19,21 @@ public class Department {
         return employees;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Department that = (Department) o;
+
+        if (type != that.type) return false;
+        return employees.equals(that.employees);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type.hashCode();
+        result = 31 * result + employees.hashCode();
+        return result;
+    }
 }

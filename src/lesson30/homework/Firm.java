@@ -25,4 +25,24 @@ public class Firm {
     public Collection getCustomers() {
         return customers;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Firm firm = (Firm) o;
+
+        if (!dateFounded.equals(firm.dateFounded)) return false;
+        if (!departments.equals(firm.departments)) return false;
+        return customers.equals(firm.customers);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = dateFounded.hashCode();
+        result = 31 * result + departments.hashCode();
+        result = 31 * result + customers.hashCode();
+        return result;
+    }
 }
