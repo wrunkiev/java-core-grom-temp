@@ -4,13 +4,18 @@ import java.util.*;
 
 public class Solution {
 
-    public static Map<Character, Integer> countSymbols(String text)throws Exception{
+    private static String validate(String text) throws Exception{
         if(text == null)
             throw new Exception("Input text can't null");
 
         String tempText = text.trim();
         if(tempText.isEmpty())
             throw new Exception("Input text can't empty");
+        return tempText;
+    }
+
+    public static Map<Character, Integer> countSymbols(String text)throws Exception{
+        String tempText = validate(text);
 
         char[] chars = tempText.toCharArray();
 
@@ -37,7 +42,6 @@ public class Solution {
             index++;
         }
 
-
         Map<Character, Integer> characters = new HashMap<>();
         index = 0;
         for(Character c : characterSet){
@@ -49,18 +53,14 @@ public class Solution {
     }
 
     public static Map<String, Integer> words(String text)throws Exception{
-        if(text == null)
-            throw new Exception("Input text can't null");
-        String tempText = text.trim();
-        if(tempText.isEmpty())
-            throw new Exception("Input text can't empty");
+        String tempText = validate(text);
 
         String[] strings = tempText.split(" ");
         Set<String> stringSet =  new HashSet<>();
 
         boolean isWord = true;
         for(String s : strings){
-            if(s != null && !s.trim().isEmpty()){
+            if(s != null && !s.trim().isEmpty() && s.length() > 2){
                 for(Character c : s.toCharArray()){
                     if(!Character.isLetter(c)){
                         isWord = false;
