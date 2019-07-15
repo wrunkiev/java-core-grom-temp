@@ -57,9 +57,20 @@ public class Solution {
 
         String[] strings = tempText.split(" ");
         Set<String> stringSet =  new HashSet<>();
+
+        boolean isWord = true;
         for(String s : strings){
             if(s != null && !s.trim().isEmpty()){
-                stringSet.add(s);
+                for(Character c : s.toCharArray()){
+                    if(!Character.isLetter(c)){
+                        isWord = false;
+                        break;
+                    }
+                }
+                if(isWord){
+                    stringSet.add(s);
+                }
+                isWord = true;
             }
         }
 
@@ -84,7 +95,6 @@ public class Solution {
             stringMap.put(s, indexes[index]);
             index++;
         }
-
         return stringMap;
     }
 }
