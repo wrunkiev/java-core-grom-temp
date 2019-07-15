@@ -7,7 +7,8 @@ public class Demo {
              Customer customer2 = new Customer("Arkadiy", "Ukraine", 75000);
              Customer customer3 = new Customer("Andrey", "Sweden", 235000);
 
-            System.out.println(Controller.employeesByCustomerProjects(customer1));
+            System.out.println(Controller.employeesByProject("Simple"));
+            System.out.println(Controller.employeesByProject("Simple").size());
 
         }catch (Exception e){
             System.out.println(e.getMessage());
