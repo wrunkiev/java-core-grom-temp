@@ -31,20 +31,21 @@ public class Solution {
             String[] tempString = str.trim().split(" ");
 
             for (String s : tempString){
-                if(!s.trim().isEmpty() && !checkString(s.trim())){
-                    n--;
-                    isNumber = false;
-                    break;
+                if(!s.trim().isEmpty()){
+                    if(!checkString(s.trim())){
+                        isNumber = false;
+                        break;
+                    }else {
+                        k++;
+                        sum += Integer.parseInt(s.trim());
+                    }
                 }
-                k++;
-                sum += Integer.parseInt(s.trim());
             }
 
-            if(isNumber )
-
-
-
-            System.out.println("Your numbers are wrong. You have " + n + " attempts to try again");
+            if(!isNumber || k != 10){
+                n--;
+                System.out.println("Your numbers are wrong. You have " + n + " attempts to try again");
+            }
 
             if(n == 0){
                 System.out.println("Your numbers are wrong. Number of attempts exceeded");
@@ -52,10 +53,9 @@ public class Solution {
             }
 
             if(isNumber){
-                System.out.println(sum);
+                System.out.println("Sum of numbers: " + sum);
                 break;
             }
-
         }
         scanner.close();
     }
