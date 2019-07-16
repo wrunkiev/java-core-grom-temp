@@ -19,81 +19,52 @@ public class Solution {
 
         char[] chars = tempText.toCharArray();
 
-        Set<Character> characterSet = new HashSet<>();
-
+        Map<Character, Integer> characterMap = new HashMap<>();
+        int count;
         for(char c : chars){
             if(Character.isLetter(c)){
-                characterSet.add(c);
-            }
-        }
-
-        Integer[] indexes = new Integer[characterSet.size()];
-
-        int index = 0;
-        int count;
-        for (char c : characterSet){
-            count = 0;
-            for(char x : chars){
-                if(c == x){
+                if(!characterMap.containsKey(c)){
+                    characterMap.put(c, 1);
+                }else {
+                    count = characterMap.get(c);
                     count++;
+                    characterMap.put(c, count);
                 }
             }
-            indexes[index] = count;
-            index++;
         }
+        return characterMap;
+    }
 
-        Map<Character, Integer> characters = new HashMap<>();
-        index = 0;
-        for(Character c : characterSet){
-            characters.put(c, indexes[index]);
-            index++;
+    private static boolean checkWord(String string)throws Exception{
+        boolean isWord = true;
+        if(string == null || string.isEmpty() || string.length() <= 2)
+            return false;
+
+        for(char c : string.toCharArray()){
+            if(!Character.isLetter(c)){
+                isWord = false;
+            }
         }
-
-        return characters;
+        return isWord;
     }
 
     public static Map<String, Integer> words(String text)throws Exception{
-        String tempText = validate(text);
+        String inputText = validate(text);
 
-        String[] strings = tempText.split(" ");
-        Set<String> stringSet =  new HashSet<>();
-
-        boolean isWord = true;
-        for(String s : strings){
-            if(s != null && !s.trim().isEmpty() && s.length() > 2){
-                for(Character c : s.toCharArray()){
-                    if(!Character.isLetter(c)){
-                        isWord = false;
-                        break;
-                    }
-                }
-                if(isWord){
-                    stringSet.add(s);
-                }
-                isWord = true;
-            }
-        }
-
-        Integer[] indexes = new Integer[stringSet.size()];
-
-        int index = 0;
-        int count;
-        for (String s : stringSet){
-            count = 0;
-            for(String x : strings){
-                if(s != null && s.equals(x)){
-                    count++;
-                }
-            }
-            indexes[index] = count;
-            index++;
-        }
-
+        String[] strings = inputText.split(" ");
         Map<String, Integer> stringMap = new HashMap<>();
-        index = 0;
-        for(String s : stringSet){
-            stringMap.put(s, indexes[index]);
-            index++;
+
+        int count;
+        for(String s : strings){
+            if(checkWord(s)){
+                if(!stringMap.containsKey(s)){
+                    stringMap.put(s, 1);
+                }else {
+                    count = stringMap.get(s);
+                    count++;
+                    stringMap.put(s, count);
+                }
+            }
         }
         return stringMap;
     }
