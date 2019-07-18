@@ -1,4 +1,4 @@
-package lesson33;
+package lesson34;
 
 import org.apache.commons.io.IOUtils;
 
@@ -11,44 +11,24 @@ public class ReadWriteFile {
     }
 
     private static void readFile(String path) {
-        FileReader reader;
-        try{
-            reader = new FileReader(path);
-        }catch (FileNotFoundException e){
-            System.err.println("File does not exist");
-            return;
-        }
-
-        BufferedReader br = new BufferedReader(reader);
-
-        try{
+        try(BufferedReader br = new BufferedReader(new FileReader(path))){
             String line;
             while ((line = br.readLine()) != null){
                 System.out.println(line);
             }
+        }catch (FileNotFoundException e){
+            System.err.println("File does not exist");
         }catch (IOException e){
             System.err.println("Reading from file " + path + " failed");
-        }finally {
-            IOUtils.closeQuietly(br);
-            IOUtils.closeQuietly(reader);
         }
     }
 
     private static void writeFile(String path)throws InterruptedException{
-        FileWriter writer = null;
-        BufferedWriter bufferedWriter = null;
-        try{
-            writer = new FileWriter(path, true);
-            //writer = new FileWriter(new File(path), true);
-            bufferedWriter = new BufferedWriter(writer);
-
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))){
             bufferedWriter.append("\n");
             bufferedWriter.append("TTTTT");
         }catch (IOException e){
             System.err.println("Can't write to file");
-        }finally {
-            IOUtils.closeQuietly(bufferedWriter);
-            IOUtils.closeQuietly(writer);
         }
     }
 }
