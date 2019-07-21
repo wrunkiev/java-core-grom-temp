@@ -4,23 +4,32 @@ import java.util.Scanner;
 
 public class Solution {
 
-    private static boolean checkString(String string){
-        try {
-            if(Integer.parseInt(string) < 100)
-                return true;
-            else
-                return false;
-        } catch (Exception e) {
+    private static boolean validateInputString(String inputString){
+        if(inputString == null || inputString. isEmpty()){
             return false;
         }
+
+        String[] tempString = inputString.trim().split(" ");
+
+        for (String s : tempString){
+            if(!s.trim().isEmpty()){
+                for(char c : s.trim().toCharArray()){
+                    if(!Character.isDigit(c)){
+                        return false;
+                    }
+                }
+                if(Integer.parseInt(s.trim()) > 100){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void readNumbers(){
 
         int n = 3;
-        boolean isNumber = true;
         int sum = 0;
-        int k = 0;
 
         Scanner scanner = new Scanner(System.in);
         while(n > 0){
@@ -28,33 +37,24 @@ public class Solution {
 
             String str = scanner.nextLine();
 
-            String[] tempString = str.trim().split(" ");
-
-            for (String s : tempString){
-                if(!s.trim().isEmpty()){
-                    if(!checkString(s.trim())){
-                        isNumber = false;
-                        break;
-                    }
-                    k++;
-                    sum += Integer.parseInt(s.trim());
-                }
-            }
-
-            if(!isNumber || k != 10){
-                n--;
-                System.out.println("Your numbers are wrong. You have " + n + " attempts to try again");
-            }
-
             if(n == 0){
                 System.out.println("Your numbers are wrong. Number of attempts exceeded");
                 break;
             }
 
-            if(isNumber){
-                System.out.println("Sum of numbers: " + sum);
-                break;
+            if(!validateInputString(str)){
+                n--;
+                System.out.println("Your numbers are wrong. You have " + n + " attempts to try again");
+                continue;
             }
+
+            String[] tempString = str.trim().split(" ");
+
+            for (String s : tempString){
+                sum += Integer.parseInt(s.trim());
+            }
+
+            System.out.println("Sum of numbers: " + sum);
         }
         scanner.close();
     }
