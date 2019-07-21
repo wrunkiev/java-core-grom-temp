@@ -11,6 +11,7 @@ public class Solution {
 
         String[] tempString = inputString.trim().split(" ");
 
+        int n = 0;
         for (String s : tempString){
             if(!s.trim().isEmpty()){
                 for(char c : s.trim().toCharArray()){
@@ -21,8 +22,14 @@ public class Solution {
                 if(Integer.parseInt(s.trim()) > 100){
                     return false;
                 }
+                n++;
             }
         }
+
+        if(n > 10){
+            return false;
+        }
+
         return true;
     }
 
@@ -51,11 +58,14 @@ public class Solution {
             String[] tempString = str.trim().split(" ");
 
             for (String s : tempString){
-                sum += Integer.parseInt(s.trim());
+                if(!s.trim().isEmpty()){
+                    sum += Integer.parseInt(s.trim());
+                }
             }
-
-            System.out.println("Sum of numbers: " + sum);
+            break;
         }
+
+        System.out.println("Sum of numbers: " + sum);
         scanner.close();
     }
 }
