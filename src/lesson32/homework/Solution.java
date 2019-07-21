@@ -35,10 +35,9 @@ public class Solution {
                     if(!checkString(s.trim())){
                         isNumber = false;
                         break;
-                    }else {
-                        k++;
-                        sum += Integer.parseInt(s.trim());
                     }
+                    k++;
+                    sum += Integer.parseInt(s.trim());
                 }
             }
 
