@@ -26,7 +26,7 @@ public class Solution {
             }
         }
 
-        if(n > 10){
+        if(n != 10){
             return false;
         }
 
