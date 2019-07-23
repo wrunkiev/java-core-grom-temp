@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Solution {
     public static void transferSentences(String fileFromPath, String fileToPath, String word)throws Exception{
         validateFile(fileFromPath, fileToPath);
-        writeToFile(fileToPath, findText(readFromFile(fileFromPath), word));
-        writeToFile(fileFromPath, deleteText(readFromFile(fileFromPath), word));
+        writeToFile(fileToPath, findTextWithWord(readFromFile(fileFromPath), word));
+        writeToFile(fileFromPath, findTextWithoutWord(readFromFile(fileFromPath), word));
 
     }
 
@@ -58,7 +58,7 @@ public class Solution {
             throw new Exception("Input text can't be empty");
     }
 
-    private static StringBuffer findText(StringBuffer stringBuffer, String word)throws Exception{
+    private static StringBuffer findTextWithWord(StringBuffer stringBuffer, String word)throws Exception{
         validateInputText(stringBuffer);
 
         StringBuffer resBuffer = new StringBuffer();
@@ -80,7 +80,7 @@ public class Solution {
         }
     }
 
-    private static StringBuffer deleteText(StringBuffer stringBuffer, String word)throws Exception{
+    private static StringBuffer findTextWithoutWord(StringBuffer stringBuffer, String word)throws Exception{
         validateInputText(stringBuffer);
 
         StringBuffer resBuffer = new StringBuffer();
