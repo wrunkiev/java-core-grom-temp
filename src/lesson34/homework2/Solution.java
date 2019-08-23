@@ -5,30 +5,26 @@ import java.util.ArrayList;
 
 public class Solution {
     public static void transferSentences(String fileFromPath, String fileToPath, String word)throws Exception{
-        validateFile(fileFromPath, fileToPath);
+        validateFile(fileFromPath);
+        validateFile(fileToPath);
         writeToFile(fileToPath, findTextWithWord(readFromFile(fileFromPath), word));
         writeToFile(fileFromPath, findTextWithoutWord(readFromFile(fileFromPath), word));
 
     }
 
-    private static void validateFile(String fileFromPath, String fileToPath)throws Exception{
-        File fileFrom = new File(fileFromPath);
-        File fileTo = new File(fileToPath);
+    private static void validateFile(String path)throws Exception{
+        File file = new File(path);
 
-        if(!fileFrom.exists()){
-            throw new FileNotFoundException("File " + fileFrom + " does not exist");
+        if(!file.exists()){
+            throw new FileNotFoundException("File " + file + " does not exist");
         }
 
-        if(!fileTo.exists()){
-            throw new FileNotFoundException("File " + fileTo + " does not exist");
+        if(!file.canRead()){
+            throw new Exception("File " + file + " does not have permissions to be read");
         }
 
-        if(!fileFrom.canRead()){
-            throw new Exception("File " + fileFrom + " does not have permissions to be read");
-        }
-
-        if(!fileTo.canWrite()){
-            throw new Exception("File " + fileTo + " does not have permissions to be written");
+        if(!file.canWrite()){
+            throw new Exception("File " + file + " does not have permissions to be written");
         }
     }
 
