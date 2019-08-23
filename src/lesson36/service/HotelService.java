@@ -52,7 +52,22 @@ public class HotelService {
         return hotelRepository.addHotel(hotel);
     }
 
-    /*public void deleteHotel(long hotelId)throws Exception{
-        hotelRepository.deleteHotel(hotelId);
-    }*/
+    public void deleteHotel(long hotelId)throws Exception{
+        ArrayList<Hotel> hotels = getHotels();
+
+        int index = 0;
+        boolean flag = false;
+        for(Hotel h : hotels){
+            if(h.getId() == hotelId){
+                flag = true;
+                break;
+            }
+            index++;
+        }
+
+        if(!flag){
+            throw new Exception("Exception in method 'deleteHotel'. Hotel with this ID: " + hotelId + " is not exist");
+        }
+        hotelRepository.deleteHotel(index);
+    }
 }

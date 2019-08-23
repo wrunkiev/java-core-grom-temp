@@ -47,33 +47,18 @@ public class HotelRepository {
         return hotel;
     }
 
-    /*public void deleteHotel(long hotelId)throws Exception{
-        ArrayList<Hotel> hotels = getHotelAll();
+    public void deleteHotel(int hotelId)throws Exception{
+        ArrayList<String> hotels = readHotelsFromDb();
 
-        int index = 0;
-        boolean flag = false;
-        for(Hotel h : hotels){
-            if(h.getId() == hotelId){
-                flag = true;
-                break;
-            }
-            index++;
-        }
-
-        if(flag){
-            hotels.remove(index);
-        }
-
-        if(hotels.size() == getHotelAll().size())
-            throw new Exception("Exception in method 'deleteHotel'. Hotel with this ID: " + hotelId + " is not exist in DB");
+        hotels.remove(hotelId);
 
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path))){
-            index = 1;
-            for(Hotel h : hotels){
+            int index = 1;
+            for(String h : hotels){
                 if(hotels.size() == index){
-                    bufferedWriter.append(h.toString());
+                    bufferedWriter.append(h);
                 }else {
-                    bufferedWriter.append(h.toString());
+                    bufferedWriter.append(h);
                     bufferedWriter.append("\n");
                 }
                 index++;
@@ -81,5 +66,5 @@ public class HotelRepository {
         }catch (IOException e){
             System.err.println("Exception in method 'deleteHotel'. Can't write to file " + path);
         }
-    }*/
+    }
 }

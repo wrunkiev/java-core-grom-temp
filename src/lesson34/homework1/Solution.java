@@ -5,24 +5,19 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 
 public class Solution {
-    private static void validate(String fileFromPath, String fileToPath)throws Exception{
-        File fileFrom = new File(fileFromPath);
-        File fileTo = new File(fileToPath);
+    private static void validate(String path)throws Exception{
+        File file = new File(path);
 
-        if(!fileFrom.exists()){
-            throw new FileNotFoundException("File " + fileFrom + " does not exist");
+        if(!file.exists()){
+            throw new FileNotFoundException("File " + file + " does not exist");
         }
 
-        if(!fileTo.exists()){
-            throw new FileNotFoundException("File " + fileTo + " does not exist");
+        if(!file.canRead()){
+            throw new Exception("File " + file + " does not have permissions to be read");
         }
 
-        if(!fileFrom.canRead()){
-            throw new Exception("File " + fileFrom + " does not have permissions to be read");
-        }
-
-        if(!fileTo.canWrite()){
-            throw new Exception("File " + fileTo + " does not have permissions to be written");
+        if(!file.canWrite()){
+            throw new Exception("File " + file + " does not have permissions to be written");
         }
     }
 
@@ -36,8 +31,6 @@ public class Solution {
             }
             if(res.length() != 0)
                 res.replace(res.length() - 1, res.length(), "");
-        }catch (FileNotFoundException e){
-            System.err.println("File does not exist");
         }catch (IOException e){
             System.err.println("Reading from file " + path + " failed");
         }
@@ -58,8 +51,13 @@ public class Solution {
     }
 
     public static void transferFileContent(String fileFromPath, String fileToPath)throws Exception{
-        validate(fileFromPath, fileToPath);
+        validate(fileFromPath);
+        validate(fileToPath);
         writeToFile(fileToPath, readFromFile(fileFromPath));
-        new FileWriter(fileFromPath).close();
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFromPath))){
+            bufferedWriter.write("");
+        }catch (IOException e){
+            System.err.println("Can't write to file");
+        }
     }
 }

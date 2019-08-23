@@ -47,7 +47,7 @@ public class HotelController {
         return hotelService.addHotel(hotel);
     }
 
-    /*public void deleteHotel(long hotelId)throws Exception{
+    public void deleteHotel(long hotelId)throws Exception{
         hotelService.deleteHotel(hotelId);
-    }*/
+    }
 }

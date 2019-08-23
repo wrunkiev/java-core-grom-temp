@@ -10,8 +10,8 @@ public class DemoHotel {
 
         Hotel hotel = new Hotel(hotelController.genIdHotel(), "Victory", "Ukraine", "Odessa", "Mayakovsky");
 
-        hotelController.addHotel(hotel);
-        //hotelController.deleteHotel(1616680127);
+        //hotelController.addHotel(hotel);
+        hotelController.deleteHotel(2050472883);
 
 
 
