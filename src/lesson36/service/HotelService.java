@@ -3,6 +3,8 @@ package lesson36.service;
 import lesson36.model.Hotel;
 import lesson36.repository.HotelRepository;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HotelService {
     private HotelRepository hotelRepository = new HotelRepository();
@@ -69,5 +71,27 @@ public class HotelService {
             throw new Exception("Exception in method 'deleteHotel'. Hotel with this ID: " + hotelId + " is not exist");
         }
         hotelRepository.deleteHotel(index);
+    }
+
+    public Set<Hotel> findHotelByName(String name)throws Exception{
+        Set<Hotel> result = new HashSet<>();
+
+        for(Hotel h : getHotels()){
+            if(h.getName().equals(name)){
+                result.add(h);
+            }
+        }
+        return result;
+    }
+
+    public Set<Hotel> findHotelByCity(String city)throws Exception{
+        Set<Hotel> result = new HashSet<>();
+
+        for(Hotel h : getHotels()){
+            if(h.getCity().equals(city)){
+                result.add(h);
+            }
+        }
+        return result;
     }
 }

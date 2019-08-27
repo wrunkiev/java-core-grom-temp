@@ -1,7 +1,5 @@
 package lesson34.homework1;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.*;
 
 public class Solution {
@@ -21,32 +19,29 @@ public class Solution {
         }
     }
 
-    private static StringBuffer readFromFile(String path){
+    private static StringBuffer readFromFile(String path)throws Exception{
         StringBuffer res = new StringBuffer();
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
-            String line;
-            while ((line = br.readLine()) != null){
-                res.append(line);
-                res.append("\n");
-            }
-            if(res.length() != 0)
-                res.replace(res.length() - 1, res.length(), "");
-        }catch (IOException e){
-            System.err.println("Reading from file " + path + " failed");
+        BufferedReader br = new BufferedReader(new FileReader(path));
+
+        String line;
+        while ((line = br.readLine()) != null){
+            res.append(line);
+            res.append("\n");
         }
+        if(res.length() != 0)
+            res.replace(res.length() - 1, res.length(), "");
+
         return res;
     }
 
-    private static void writeToFile(String path, StringBuffer contentToWrite){
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))){
-            if(readFromFile(path).length() == 0)
-                bufferedWriter.append(contentToWrite);
-            else{
-                bufferedWriter.append("\n");
-                bufferedWriter.append(contentToWrite);
-            }
-        }catch (IOException e){
-            System.err.println("Can't write to file");
+    private static void writeToFile(String path, StringBuffer contentToWrite)throws Exception{
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true));
+
+        if(readFromFile(path).length() == 0)
+            bufferedWriter.append(contentToWrite);
+        else{
+            bufferedWriter.append("\n");
+            bufferedWriter.append(contentToWrite);
         }
     }
 
@@ -54,10 +49,8 @@ public class Solution {
         validate(fileFromPath);
         validate(fileToPath);
         writeToFile(fileToPath, readFromFile(fileFromPath));
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFromPath))){
-            bufferedWriter.write("");
-        }catch (IOException e){
-            System.err.println("Can't write to file");
-        }
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFromPath));
+
+        bufferedWriter.write("");
     }
 }

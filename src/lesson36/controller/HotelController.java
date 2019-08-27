@@ -3,7 +3,9 @@ package lesson36.controller;
 import lesson36.model.Hotel;
 import lesson36.service.HotelService;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 public class HotelController {
     private HotelService hotelService = new HotelService();
@@ -42,12 +44,30 @@ public class HotelController {
         return id;
     }
 
+    // method adds hotel to base
     public Hotel addHotel(Hotel hotel)throws Exception{
         validateHotel(hotel);
         return hotelService.addHotel(hotel);
     }
 
+    // method deletes hotel from base
     public void deleteHotel(long hotelId)throws Exception{
         hotelService.deleteHotel(hotelId);
+    }
+
+    // method finds hotels by name in to base
+    public Set<Hotel> findHotelByName(String name)throws Exception{
+        if(name == null || name.equals(""))
+            throw new Exception("Exception in method 'findHotelByName'. Name of hotel can't be null or empty");
+
+        return hotelService.findHotelByName(name);
+    }
+
+    // method finds hotels by city in to base
+    public Set<Hotel> findHotelByCity(String city)throws Exception{
+        if(city == null || city.equals(""))
+            throw new Exception("Exception in method 'findHotelByCity'. Name of city of hotel can't be null or empty");
+
+        return hotelService.findHotelByCity(city);
     }
 }
