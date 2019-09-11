@@ -2,8 +2,6 @@ package lesson36.controller;
 
 import lesson36.model.Hotel;
 import lesson36.service.HotelService;
-
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 

@@ -3,8 +3,6 @@ package lesson36.controller;
 import lesson36.model.Filter;
 import lesson36.model.Room;
 import lesson36.service.RoomService;
-
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
@@ -61,9 +59,6 @@ public class RoomController {
     }
 
     public Set<Room> findRooms(Filter filter)throws Exception{
-        if(filter == null)
-            throw new Exception("Exception in method 'findRooms'. Filter can't be null.");
-
         return roomService.findRooms(filter);
     }
 }

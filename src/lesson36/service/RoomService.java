@@ -4,7 +4,6 @@ import lesson36.model.Filter;
 import lesson36.model.Hotel;
 import lesson36.model.Room;
 import lesson36.repository.RoomRepository;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -77,12 +76,12 @@ public class RoomService {
             }
 
             room = new Room(Long.parseLong(roomFields.get(0)),
-                    Integer.parseInt(roomFields.get(1)),
-                    Double.parseDouble(roomFields.get(2)),
-                    Boolean.parseBoolean(roomFields.get(3)),
-                    Boolean.parseBoolean(roomFields.get(4)),
-                    new SimpleDateFormat("dd-MM-yyyy").parse(roomFields.get(5)),
-                    getHotel(Long.parseLong(roomFields.get(6))));
+                            Integer.parseInt(roomFields.get(1)),
+                            Double.parseDouble(roomFields.get(2)),
+                            Boolean.parseBoolean(roomFields.get(3)),
+                            Boolean.parseBoolean(roomFields.get(4)),
+                            new SimpleDateFormat("dd-MM-yyyy").parse(roomFields.get(5)),
+                            getHotel(Long.parseLong(roomFields.get(6))));
             rooms.add(room);
             roomFields.clear();
         }
@@ -128,12 +127,19 @@ public class RoomService {
     public Set<Room> findRooms(Filter filter)throws Exception{
         Set<Room> result = new HashSet<>();
 
-        for(Room r : getRooms()){
-            if(h.getName().equals(name)){
-                return h;
+        if(filter == null){
+            result.addAll(getRooms());
+        }else {
+            for(Room r : getRooms()){
+                if(r.getNumberOfGuests() >= filter.getNumberOfGuests()
+                    && r.getPrice() >= filter.getNumberOfGuests()
+                    && r.isBreakfastIncluded() == filter.isBreakfastIncluded()
+                    && r.isPetsAllowed() == filter.isPetsAllowed()
+                    && r.getDateAvailableFrom().getTime() >= filter.getDateAvailableFrom().getTime()){
+                    result.add(r);
+                }
             }
         }
-
-        throw new Exception("Exception in method 'findHotelByName'. Hotel with this name: " + name + " is not exist");
+        return result;
     }
 }

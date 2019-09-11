@@ -22,10 +22,10 @@ public class HotelService {
             }
 
             hotel = new Hotel(Long.parseLong(hotelFields.get(0)),
-                                hotelFields.get(1),
-                                hotelFields.get(2),
-                                hotelFields.get(3),
-                                hotelFields.get(4));
+                              hotelFields.get(1),
+                              hotelFields.get(2),
+                              hotelFields.get(3),
+                              hotelFields.get(4));
             hotels.add(hotel);
             hotelFields.clear();
         }
